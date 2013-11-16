@@ -1,0 +1,11 @@
+/**
+ * Typography
+ */
+
+/**
+ * Textures
+ */
+body {
+    background: #333536 url('elegant/background.jpg') center center fixed no-repeat;
+    background-size: cover;
+}
