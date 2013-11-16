@@ -1,1 +1,1 @@
-angular.module('dataGrid', []);
+angular.module('dataGrid', ['ngGrid']);
