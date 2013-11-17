@@ -1,7 +1,5 @@
-angular.module('dataGrid.services').factory('csvConverter', function () {
+angular.module('dataGrid.services').factory('csvConverter', ['typograph', function (typograph) {
     'use strict';
-
-    function noop(key) { return key; }
 
     // Algorithm source: http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm
     function csvToArray(strData, strDelimiter) {
@@ -62,19 +60,8 @@ angular.module('dataGrid.services').factory('csvConverter', function () {
     }
 
     return {
-        /**
-         * @param csvString
-         *      CSV string to be transformed into JSON
-         *
-         * @param {keyTransformation} [keyTransformation=noop]
-         *      optional function to be applied to CSV column names to make them valid JSON
-         *      (remove special characters, spaces, etc.)
-         *
-         * @returns {Array} an array of JSON objects
-         */
-        jsonFrom: function(csvString, /* optional */ keyTransformation) {
+        jsonFrom: function(csvString) {
             var json      = [],
-                transform = ( keyTransformation || noop ),
                 rows      = csvToArray(csvString),
                 headerRow = rows[0];
 
@@ -83,7 +70,7 @@ angular.module('dataGrid.services').factory('csvConverter', function () {
 
                 for (var columnIndex = 0; columnIndex < headerRow.length && columnIndex < rows[rowIndex].length; columnIndex++) {
 
-                    var key = transform(headerRow[columnIndex]);
+                    var key = typograph.snake_case(headerRow[columnIndex]);
                     json[rowIndex - 1][key] = rows[rowIndex][columnIndex];
                 }
             }
@@ -91,4 +78,4 @@ angular.module('dataGrid.services').factory('csvConverter', function () {
             return json;
         }
     };
-});
+}]);

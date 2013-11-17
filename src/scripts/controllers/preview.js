@@ -1,4 +1,4 @@
-angular.module('dataGrid').controller('preview', [ 'stockTickerClerk', 'md5', '$scope', '$interval', '$log', '$templateCache', function (stockTickerClerk, md5, $scope, $interval, $log, $templateCache) {
+angular.module('dataGrid').controller('preview', [ 'stockTickerClerk', 'typograph', 'md5', '$scope', '$interval', '$log', '$templateCache', function (stockTickerClerk, typograph, md5, $scope, $interval, $log, $templateCache) {
     $interval(function() {
 
         stockTickerClerk.getTheLatestUpdate().then(ifTheDataHasChanged(function(newMarketData) {
@@ -55,7 +55,7 @@ angular.module('dataGrid').controller('preview', [ 'stockTickerClerk', 'md5', '$
         angular.forEach(shareDetails, function(value, key){
             columnDefinitions.push({
                 field: key,
-                displayName: key.replace("_", " "),
+                displayName: typograph.Start_Case(key),
                 index: columnIndex,
                 width: "*"
             });

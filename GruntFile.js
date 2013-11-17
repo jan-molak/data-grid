@@ -47,7 +47,7 @@ module.exports = function (grunt) {
             options: {
                 boss: true,
                 browser: true,
-                camelcase: true,
+                // camelcase: true,
                 curly: true,
                 eqeqeq: true,
                 eqnull: true,

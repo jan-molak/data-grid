@@ -1,16 +1,12 @@
-angular.module('dataGrid.services').factory('stockTickerClerk', ['spreadsheet', 'csvConverter', function(spreadsheet, csvConverter) {
+angular.module('dataGrid.services').factory('stockTickerClerk', ['spreadsheet', 'csvConverter', 'typograph', function(spreadsheet, csvConverter, typograph) {
 
     function read(spreadsheet) {
         return spreadsheet.fetch();
     }
 
     function translateToJSON() {
-        function withSpacesReplacedByUnderscoresInKeyNames(key) {
-            return key.replace(" ", "_");
-        }
-
         return function(market) {
-            return csvConverter.jsonFrom(market.data, withSpacesReplacedByUnderscoresInKeyNames);
+            return csvConverter.jsonFrom(market.data);
         };
     }
 
