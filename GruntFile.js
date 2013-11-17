@@ -71,6 +71,7 @@ module.exports = function (grunt) {
                     camelcase: false,
                     globals: {
                         $: false,
+                        afterEach: false,
                         angular: false,
                         beforeEach: false,
                         browser: false,
