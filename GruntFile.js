@@ -10,10 +10,10 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         templates: [
-            'src/views/**.html'
+            'src/views/**/*.html'
         ],
         srcFiles: [
-            'src/scripts/*.js'
+            'src/scripts/**/*.js'
         ],
         testFiles: {
             karmaUnit: 'test/karma.conf.js'
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
                     $: false
                 }
             },
-            src: [ 'src/scripts/*.js' ],
+            src: [ 'src/scripts/**/*.js' ],
             spec: {
                 options: {
                     camelcase: false,
@@ -75,6 +75,7 @@ module.exports = function (grunt) {
                         beforeEach: false,
                         browser: false,
                         browserTrigger: false,
+                        console: false,
                         describe: false,
                         expect: false,
                         inject: false,

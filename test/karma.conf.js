@@ -13,7 +13,7 @@ module.exports = function(config) {
         files: [
             'src/vendor/angular-1.2.1.min.js',
             'test/vendor/angular-mocks-1.2.1.js',
-            'src/scripts/app.js',
+            'src/scripts/**/*.js',
             'test/unit/**/*Spec.js'
         ],
 
