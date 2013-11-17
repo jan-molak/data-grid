@@ -84,6 +84,7 @@ module.exports = function (grunt) {
                         module: false,
                         repeater: false,
                         runs: false,
+                        sinon: false,
                         spyOn: false,
                         waits: false,
                         waitsFor: false

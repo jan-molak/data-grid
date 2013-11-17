@@ -1,71 +1,39 @@
-angular.module('dataGrid').controller('preview', [ 'stockTickerClerk', 'typograph', 'md5', '$scope', '$interval', '$log', '$templateCache', function (stockTickerClerk, typograph, md5, $scope, $interval, $log, $templateCache) {
+angular.module('dataGrid').controller('preview',
+        [ 'stockTickerClerk', 'typograph', 'dataGridExpert', 'conditionalExecutor', '$scope', '$interval', '$log',
+function (stockTickerClerk, typograph, dataGridExpert, conditionalExecutor, $scope, $interval, $log) {
+    'use strict';
+
+    // syntactic sugar and helper functions
+    var ifTheDataHasChanged  = conditionalExecutor.executeIfTheJSONDataHasChanged,
+        columnDefinitionsFor = dataGridExpert.columnDefinitionsFor;
+
+
+    // the actual core
     $interval(function() {
 
         stockTickerClerk.getTheLatestUpdate().then(ifTheDataHasChanged(function(newMarketData) {
-            $log.info("New stock market data has arrived! Updating the Data Grid ...");
+
+            $log.info("New market data has arrived!");
+
             updateTheGridWith(newMarketData);
         }));
 
     }, 500);
 
 
+    // ngGrid initialisation
     $scope.marketData                = [];
     $scope.dataGridColumnDefinitions = [];
-    $scope.gridOptions = {
-        data:               'marketData',
-        columnDefs:         'dataGridColumnDefinitions',
-        headerRowHeight:    30,
-        multiSelect:        false,
-        enableColumnResize: true,
-        headerRowTemplate:  $templateCache.get('grid/headerRowTemplate.html'),
-        rowTemplate:        $templateCache.get('grid/rowTemplate.html'),
-        cellTemplate:       $templateCache.get('grid/cellTemplate.html')
-    };
-
-    /**
-     * Calculates a checksum of the new batch of Market Data;
-     * If the checksum differs from a one calculated for the previous request,
-     * "action(marketData)" gets executed.
-     * This pattern is similar to Ruby's "blocks".
-     *
-     * @param action
-     * @returns {executeAround}
-     */
-    function ifTheDataHasChanged(action) {
-        function executeAround(marketData) {
-            var checksum = md5.createHash(JSON.stringify(marketData));
-
-            if (checksum === this.previousResultChecksum) {
-                return;
-            }
-
-            action(marketData);
-            this.previousResultChecksum = checksum;
-        }
-        executeAround.prototype.previousResultChecksum = undefined;
-
-        return executeAround;
-    }
+    $scope.gridOptions = angular.extend(
+        dataGridExpert.sensibleDefaults(),
+        { data: 'marketData', columnDefs: 'dataGridColumnDefinitions' }
+    );
 
     function updateTheGridWith(marketData) {
-        var shareDetails      = marketData[0],
-            columnDefinitions = [],
-            columnIndex       = 0;
-
-        angular.forEach(shareDetails, function(value, key){
-            columnDefinitions.push({
-                field: key,
-                displayName: typograph.Start_Case(key),
-                index: columnIndex,
-                width: "*"
-            });
-            columnIndex++;
-        });
-
-
-        $scope.dataGridColumnDefinitions = columnDefinitions;
+        $scope.dataGridColumnDefinitions = columnDefinitionsFor(marketData[0]);
         $scope.marketData = marketData;
 
+        // triggers reload of the grid
         if (! $scope.$$phase) {
             $scope.$apply();
         }
