@@ -126,3 +126,7 @@ Build tools and test runners
 1. karma-coverage-0.1.2
 1. karma-junit-reporter-0.1
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jan-molak/data-grid/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
