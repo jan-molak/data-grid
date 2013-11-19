@@ -12,6 +12,8 @@ angular.module("dataGrid.templates", []).run(["$templateCache", function($templa
     );
 
     $templateCache.put("grid/cellTemplate.html",
-        "<div class=\"ngCellText\" ng-class=\"col.colIndex()\"><span ng-cell-text>{{COL_FIELD CUSTOM_FILTERS}}</span></div>"
+        "<div class=\"ngCellText\" ng-class=\"col.colIndex()\">" +
+        "  <span ng-cell-text dg-cell-class=\"{{ COL_FIELD }}\">{{COL_FIELD}}</span>" +
+        "</div>"
     );
 }]);

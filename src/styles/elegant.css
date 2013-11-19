@@ -6,6 +6,9 @@ body {
     background-size: cover;
 }
 
+.percentage { color: green !important; }
+.percentage.decrease { color: firebrick !important; }
+
 /**
  * ngGrid
  */

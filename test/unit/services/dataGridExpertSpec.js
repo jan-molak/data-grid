@@ -28,8 +28,7 @@ describe('dataGrid.services', function () {
                 'multiSelect',
                 'enableColumnResize',
                 'headerRowTemplate',
-                'rowTemplate',
-                'cellTemplate'
+                'rowTemplate'
             ];
 
             forEach(expectedConfigurationKeys, function(key) {

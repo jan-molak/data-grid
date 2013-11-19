@@ -9,8 +9,7 @@ angular.module('dataGrid.services').factory('dataGridExpert', ['typograph', '$te
                 multiSelect:        false,
                 enableColumnResize: true,
                 headerRowTemplate:  $templateCache.get('grid/headerRowTemplate.html'),
-                rowTemplate:        $templateCache.get('grid/rowTemplate.html'),
-                cellTemplate:       $templateCache.get('grid/cellTemplate.html')
+                rowTemplate:        $templateCache.get('grid/rowTemplate.html')
             };
         },
 
@@ -23,7 +22,8 @@ angular.module('dataGrid.services').factory('dataGridExpert', ['typograph', '$te
                     field: key,
                     displayName: typograph.Start_Case(key),
                     index: columnIndex,
-                    width: "*"
+                    width: "*",
+                    cellTemplate: $templateCache.get('grid/cellTemplate.html')
                 });
                 columnIndex++;
             });
