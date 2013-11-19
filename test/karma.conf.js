@@ -14,6 +14,7 @@ module.exports = function(config) {
             'src/vendor/angular-1.2.1.min.js',
             'src/vendor/angular-md5.js',
             'test/vendor/**/*.js',
+            'test/lib/**/*.js',
             'src/scripts/**/*.js',
             'test/unit/**/*Spec.js'
         ],

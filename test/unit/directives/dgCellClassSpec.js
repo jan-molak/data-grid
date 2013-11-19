@@ -14,23 +14,6 @@ describe('dgCellClass', function() {
         scope.$digest();
     }));
 
-    beforeEach(function(){
-        this.addMatchers({
-            toHaveClass: function(expectedClass) {
-                var negateIfNecessary = this.isNot ? ' not' : '';
-
-                this.message = function() {
-                    return [ "Expected element with following classes: " +
-                        jasmine.pp(this.actual.attr('class')) + ", " +
-                        negateIfNecessary + "to have " +
-                        jasmine.pp(expectedClass) + ' class as well.' ];
-                };
-
-                return this.actual.hasClass(expectedClass);
-            }
-        });
-    });
-
     it('sets the class of an element to "percentage", if the value is a percentage.', function() {
         givenTheCellValueIs('12%');
 

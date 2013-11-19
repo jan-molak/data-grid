@@ -1,14 +1,6 @@
 describe('dataGrid.services', function () {
     describe('dataGridExpert', function() {
 
-        beforeEach(function(){
-            this.addMatchers({
-                toHave: function(expectedProperty) {
-                    return this.actual.hasOwnProperty(expectedProperty);
-                }
-            });
-        });
-
         beforeEach(module('dataGrid.services'));
 
         it("determines column definitions for the grid", inject(function (dataGridExpert) {
@@ -31,17 +23,9 @@ describe('dataGrid.services', function () {
                 'rowTemplate'
             ];
 
-            forEach(expectedConfigurationKeys, function(key) {
-                expect(dataGridExpert.sensibleDefaults()).toHave(key);
+            angular.forEach(expectedConfigurationKeys, function(key) {
+                expect(dataGridExpert.sensibleDefaults()).toHaveProperty(key);
             });
         }));
-
-
-        // syntactic sugar
-        function forEach(elements, action) {
-            for (var i=0; i<elements.length; i++) {
-                action(elements[i]);
-            }
-        }
     });
 });

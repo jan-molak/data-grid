@@ -69,7 +69,8 @@ translates it to more domain-specific language that's understood by the rest of 
 
 ### Where are the tests?
 
-I'm glad that you asked! They're here: [test/unit/services](test/unit/services).
+I'm glad that you asked! They're here: [test/unit](test/unit).
+I've also defined a couple of custom Jasmine matchers, which you can find under [test/lib](test/lib).
 
 ## Running App Locally
 

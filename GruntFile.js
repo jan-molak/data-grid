@@ -82,6 +82,7 @@ module.exports = function (grunt) {
                         inject: false,
                         input: false,
                         it: false,
+                        jasmine: false,
                         module: false,
                         repeater: false,
                         runs: false,

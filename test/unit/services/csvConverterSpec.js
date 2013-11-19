@@ -11,15 +11,6 @@ describe('dataGrid.services', function () {
                 { 'ticker': 'ACXM', 'industry': 'Information Technology Services', 'market_cap': '1,754.84', 'price': '£23.95', 'change': '0.55%', 'volume': '114,570.00'}
             ];
 
-        // custom Jasmine matcher to compare values of two JSON objects
-        beforeEach(function(){
-            this.addMatchers({
-                toBeSameAs: function(expected) {
-                    return JSON.stringify(this.actual) === JSON.stringify(expected);
-                }
-            });
-        });
-
         beforeEach(module('dataGrid.services'));
 
         it('converts a single record CSV string to a valid JSON object', inject(function (csvConverter) {
