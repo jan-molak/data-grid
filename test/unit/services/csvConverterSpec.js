@@ -22,13 +22,13 @@ describe('dataGrid.services', function () {
 
         beforeEach(module('dataGrid.services'));
 
-        it('should convert a single record CSV string to a valid JSON object', inject(function (csvConverter) {
+        it('converts a single record CSV string to a valid JSON object', inject(function (csvConverter) {
             var json = csvConverter.jsonFrom('Market Cap\n"1,837.89"');
 
             expect(json[0]).toBeSameAs({ 'market_cap': '1,837.89' });
         }));
 
-        it('should convert more complex CSV to a JSON object', inject(function(csvConverter) {
+        it('converts more complex CSV to a JSON object', inject(function(csvConverter) {
             expect(csvConverter.jsonFrom(CSV_SAMPLE)).toBeSameAs(EXPECTED_JSON_RESULT);
         }));
     });
