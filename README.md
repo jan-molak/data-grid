@@ -7,8 +7,9 @@ Live app can be accessed at http://datagrid.smartcodeltd.co.uk/,
 the spreadsheet that's acting as its datasource lives on [Google Drive here](https://docs.google.com/spreadsheet/ccc?key=0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc&usp=sharing) 
 and allows the data to be modified without having to sign in. You're of course welcome to edit it, but please don't mess it up too much ;-)
 
-Also bear in mind that even though the application queries the Google Drive API every 500ms, Google Drive API only refreshes its cashes once every 5 minutes, 
-unless you re-publish the spreadsheet manually (this however would require you to be signed in).
+Please bear in mind that even though the application queries the Google Drive API every 500ms,
+Google Drive API only refreshes its cashes once every 5 minutes. An instantaneous refresh can be triggered upon request,
+this however would require you to be signed in and manually requesting re-publishing.
 
 I don't personally see this as a big problem for a simple test app that doesn't need to present near real-time updates. 
 In a production system you'd probably want to use node.js and socket.io instead of a Google Spreadsheet anyway :)
@@ -23,17 +24,17 @@ One such task was updating the Chalk Board listing Stock Market prices in broker
 
 A Clerk would use her Ticker Tape Machine to get an update on the latest prices. 
 Once there's an update she'd write down the latest prices on a piece of paper, 
-give it a Runner who'd then go to his broker's office and update their Chalk Board.
+give it to a Runner who'd then go to his broker's office and update their Chalk Board.
 
 This might be oversimplifying things a lot, and I admit that I wasn't around in the late 19th century, 
 but it makes for a decent metaphor ;) 
 
-You can find more details on chalk boards, runners, etc. on [Wikipedia](http://en.wikipedia.org/wiki/Stock_market_data_systems#Chalk_boards))
+You can find more details on chalk boards, runners, etc. on [Wikipedia](http://en.wikipedia.org/wiki/Stock_market_data_systems#Chalk_boards)).
 
 ## Architecture
 
 The application uses an MVC pattern and the above metaphor is reflected in the following piece of code 
-you'll find in the *["preview" controller](src/scripts/controllers/preview.js)*
+you'll find in the *["preview" controller](src/scripts/controllers/preview.js)*:
 
 ```
 stockTickerClerk.getTheLatestUpdate().then(ifTheDataHasChanged(function(newMarketData) {
@@ -42,7 +43,7 @@ stockTickerClerk.getTheLatestUpdate().then(ifTheDataHasChanged(function(newMarke
 ```
 
 Since updating a Chalk Board (a.k.a. Data Grid) is a lot of work and takes time, it's only done `ifTheDataHasChanged`
-(see the [Execute Around Pattern](http://c2.com/cgi/wiki?ExecuteAroundMethod))
+(that's an implementation of the [Execute Around Pattern](http://c2.com/cgi/wiki?ExecuteAroundMethod)).
 
 Also, instead of a Ticker Tape we're using a CSV file produced by Google Drive API, so our Clerk will need a simple pocket
 translator, that will help her to translate the CSV format to something a person updating the Chalk Board would understand: JSON.
@@ -63,8 +64,8 @@ translates it to more domain-specific language that's understood by the rest of 
 
 ### Why retrieve a CSV instead of JSON from Google APIs?
 
-1. CSV is much less data, so it can be transferred quicker (compare: [CSV 12KB]( https://docs.google.com/spreadsheet/pub?key=0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc&single=true&gid=0&output=csv), [JSON (lists) 135KB](https://spreadsheets.google.com/feeds/list/0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc/od6/public/values?alt=json-in-script&callback=myCallback), [JSON (cells) 594KB](https://spreadsheets.google.com/feeds/cells/0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc/od6/public/values?alt=json-in-script&callback=myCallback))
-2. We need to do the conversion anyway, so retrieving JSON doesn't give us any benefit
+1. CSV is much less data, so it can be transferred quicker (compare: [CSV 12KB]( https://docs.google.com/spreadsheet/pub?key=0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc&single=true&gid=0&output=csv), [JSON (lists) 135KB](https://spreadsheets.google.com/feeds/list/0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc/od6/public/values?alt=json-in-script&callback=myCallback), [JSON (cells) 594KB](https://spreadsheets.google.com/feeds/cells/0AsGCguxC1yoSdHNKZm1lSW5CbGdwTUF1amdiSC01dXc/od6/public/values?alt=json-in-script&callback=myCallback)).
+2. We need to do the conversion anyway, so retrieving JSON doesn't give us any benefit.
 
 ### Where are the tests?
 
