@@ -7,10 +7,8 @@ directive('dgCellClass', function() {
         link: function(scope, element, attr) {
 
             attr.$observe('dgCellClass', function(value) {
-                if (isPercentage(value)) {
-                    element.addClass('percentage');
-                    element.toggleClass('decrease', isNegative(value));
-                }
+                element.toggleClass('percentage', isPercentage(value));
+                element.toggleClass('negative',   isNegative(value));
             });
 
             function isPercentage(value) {
@@ -19,7 +17,8 @@ directive('dgCellClass', function() {
             }
 
             function isNegative(value) {
-                return value[0] === '-';
+                // any value that gets here is a string and that's ensured by Angular
+                return !! value.match(/^[-][£$]?[\d,.]+%?$/);
             }
         }
     };

@@ -6,8 +6,11 @@ body {
     background-size: cover;
 }
 
+/*
+ * Conditional formatting of grid cells, classes are set by the dgCellClass directive
+ */
 .percentage { color: green !important; }
-.percentage.decrease { color: firebrick !important; }
+.percentage.negative { color: firebrick !important; }
 
 /**
  * ngGrid
